@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
+import { colors } from '../modules/theme'
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   container: {
@@ -20,17 +22,17 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
     height: 60,
-    backgroundColor: '#252324',
+    backgroundColor: colors.blackBG,
     padding: '0 1rem',
     fontFamily: 'Baloo',
-    color: `rgb(${202},${221},${230})`
+    color: colors.whiteFont
   },
   navBar: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     height: 160,
-    backgroundColor: '#F0FAFE',
+    backgroundColor: colors.whiteBG,
     padding: '0 1rem',
   }
 })
@@ -41,15 +43,15 @@ function Header() {
   return <div className={classes.container}>
     <div className={clsx(classes.socialContainer)}>
       <div className={classes.skilet}>
-        Pneumonia Neuro Detection
+        <Typography>Pneumonia Neuro Detection</Typography>
       </div>
     </div>
     <div className={clsx(classes.navBar)}>
       <div className={classes.skilet}>
-        FNNDSC
-
-        Fetal-Neonatal Neuroimaging
-        Developmental Science Center
+        <Typography variant={'h6'}>
+          PND
+          Neuro Technologies
+        </Typography>
       </div>
     </div>
   </div>

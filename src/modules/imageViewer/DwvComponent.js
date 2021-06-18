@@ -20,6 +20,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import './DwvComponent.css';
 import dwv from 'dwv';
 import clsx from 'clsx';
+import { colors } from '../theme'
 
 // gui overrides
 
@@ -56,6 +57,18 @@ const styles = theme => ({
   dropBox: {
   },
   layerContainer: {
+  },
+  controllsContainer: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    padding: '1rem',
+  },
+  dataLoaded: {
+    border: `0.3rem dashed ${colors.border}`
   }
 });
 
@@ -102,49 +115,52 @@ class DwvComponent extends React.Component {
     return (
       <div id="dwv">
         <LinearProgress variant="determinate" value={loadProgress} />
-        <div className="button-row">
-          <Button variant="outlined" color="primary"
-            aria-owns={toolMenuAnchorEl ? 'simple-menu' : null}
-            aria-haspopup="true"
-            onClick={this.handleMenuButtonClick}
-            disabled={!dataLoaded}
-            className={classes.button}
-            size="medium"
-          >{ this.state.selectedTool }
-          <ArrowDropDownIcon className={classes.iconSmall}/></Button>
-          <Menu
-            id="simple-menu"
-            anchorEl={toolMenuAnchorEl}
-            open={Boolean(toolMenuAnchorEl)}
-            onClose={this.handleMenuClose}
-          >
-            {toolsMenuItems}
-          </Menu>
+        <div className={classes.controllsContainer}>
+          <div className="button-row">
+            <Button variant="outlined" color="primary"
+              aria-owns={toolMenuAnchorEl ? 'simple-menu' : null}
+              aria-haspopup="true"
+              onClick={this.handleMenuButtonClick}
+              disabled={!dataLoaded}
+              className={classes.button}
+              size="medium"
+            >{ this.state.selectedTool }
+            <ArrowDropDownIcon className={classes.iconSmall}/></Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={toolMenuAnchorEl}
+              open={Boolean(toolMenuAnchorEl)}
+              onClose={this.handleMenuClose}
+            >
+              {toolsMenuItems}
+            </Menu>
 
-          <Button variant="outlined" color="primary"
-            disabled={!dataLoaded}
-            onClick={this.onReset}
-          >Reset</Button>
+            <Button variant="outlined" color="primary"
+              disabled={!dataLoaded}
+              onClick={this.onReset}
+              className={classes.button}
+            >Reset</Button>
 
-          <input
-            accept="*"
-            className="inputUploadImage"
-            id="contained-button-file"
-            multiple
-            type="file"
-            onChange={this.handleInputFileChange}
-          />
-          <label htmlFor="contained-button-file">
-            <Button variant="outlined" color="primary" component="span">
-              Upload
-            </Button>
-          </label>
-        </div>
+            <input
+              accept="*"
+              className="inputUploadImage"
+              id="contained-button-file"
+              multiple
+              type="file"
+              onChange={this.handleInputFileChange}
+            />
+            <label htmlFor="contained-button-file">
+              <Button className={classes.button} variant="outlined" color="primary" component="span">
+                Upload
+              </Button>
+            </label>
+          </div>
 
-        <div className={clsx(classes.layerContainer, 'layerContainer')}>
-          <div className={clsx(classes.dropBox, 'dropBox')}></div>
-          <canvas className="imageLayer">Only for HTML5 compatible browsers...</canvas>
-          <div className="drawDiv"></div>
+          <div className={clsx(classes.layerContainer, 'layerContainer')}>
+            <div className={clsx(classes.dropBox, 'dropBox')}></div>
+            <canvas className={clsx(this.state.dataLoaded && classes.dataLoaded, 'imageLayer')}>Only for HTML5 compatible browsers...</canvas>
+            <div className="drawDiv"></div>
+          </div>
         </div>
 
       </div>
