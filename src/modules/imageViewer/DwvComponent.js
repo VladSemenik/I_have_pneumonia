@@ -19,6 +19,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 import './DwvComponent.css';
 import dwv from 'dwv';
+import clsx from 'clsx';
 
 // gui overrides
 
@@ -51,6 +52,10 @@ const styles = theme => ({
   },
   iconSmall: {
     fontSize: 20,
+  },
+  dropBox: {
+  },
+  layerContainer: {
   }
 });
 
@@ -98,7 +103,7 @@ class DwvComponent extends React.Component {
       <div id="dwv">
         <LinearProgress variant="determinate" value={loadProgress} />
         <div className="button-row">
-          <Button variant="contained" color="primary"
+          <Button variant="outlined" color="primary"
             aria-owns={toolMenuAnchorEl ? 'simple-menu' : null}
             aria-haspopup="true"
             onClick={this.handleMenuButtonClick}
@@ -116,28 +121,28 @@ class DwvComponent extends React.Component {
             {toolsMenuItems}
           </Menu>
 
-          <Button variant="contained" color="primary"
+          <Button variant="outlined" color="primary"
             disabled={!dataLoaded}
             onClick={this.onReset}
           >Reset</Button>
+
+          <input
+            accept="*"
+            className="inputUploadImage"
+            id="contained-button-file"
+            multiple
+            type="file"
+            onChange={this.handleInputFileChange}
+          />
+          <label htmlFor="contained-button-file">
+            <Button variant="outlined" color="primary" component="span">
+              Upload
+            </Button>
+          </label>
         </div>
 
-        <input
-          accept="*"
-          className="inputUploadImage"
-          id="contained-button-file"
-          multiple
-          type="file"
-          onChange={this.handleInputFileChange}
-        />
-        <label htmlFor="contained-button-file">
-          <Button variant="contained" color="primary" component="span">
-            Upload
-          </Button>
-        </label>
-
-        <div className="layerContainer">
-          <div className="dropBox"></div>
+        <div className={clsx(classes.layerContainer, 'layerContainer')}>
+          <div className={clsx(classes.dropBox, 'dropBox')}></div>
           <canvas className="imageLayer">Only for HTML5 compatible browsers...</canvas>
           <div className="drawDiv"></div>
         </div>
